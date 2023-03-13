@@ -58,6 +58,12 @@ public class AlumnoController {
 
     @GetMapping("/ALUMNOS/UPDATE/{id}/")
     public ResponseEntity<Alumno> updateAlumno(@PathVariable int id, @RequestParam String fct) {
+        Alumno alumno1 = new Alumno(1, "Jose", "SI");
+        Alumno alumno2 = new Alumno(2, "Alex", "NO");
+        Alumno alumno3 = new Alumno(3, "Dani", "NO");
+        alumnos.add(alumno1);
+        alumnos.add(alumno2);
+        alumnos.add(alumno3);
         Alumno alumnoActualizado = null;
         for (int i = 0; i < alumnos.size(); i++) {
             if (alumnos.get(i).getId() == id) {
@@ -82,6 +88,13 @@ public class AlumnoController {
 
     @GetMapping(path = "/ALUMNOS/UPDATE/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Alumno> getAlumno(@PathVariable(value = "id") int alumnoId) throws RelationNotFoundException {
+        // cargar la lista de alumnos otra vez
+        Alumno alumno1 = new Alumno(1, "Jose", "SI");
+        Alumno alumno2 = new Alumno(2, "Alex", "NO");
+        Alumno alumno3 = new Alumno(3, "Dani", "NO");
+        alumnos.add(alumno1);
+        alumnos.add(alumno2);
+        alumnos.add(alumno3);
         // Simulamos una consulta a la base de datos o a una fuente de datos externa
         Alumno alumno = null;
         for (int i = 0; i < alumnos.size(); i++) {
@@ -105,9 +118,10 @@ public class AlumnoController {
     }
 
     @GetMapping("/ALUMNOS/DELETEALL")
-    public ResponseEntity<Alumno> deleteAll() {
-        alumnos.clear();
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public HttpStatus deleteAll() {
+        this.alumnos = new ArrayList<>();
+
+        return HttpStatus.OK;
     }
 
 }
